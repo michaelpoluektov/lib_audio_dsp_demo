@@ -1,0 +1,67 @@
+{
+  "ir_version": 1,
+  "producer_name": "SimpleDSP",
+  "producer_version": "1.0",
+  "graph": {
+    "name": "reverb_volume",
+    "nodes": [
+      {
+        "input": [
+          0,
+          1
+        ],
+        "output": [
+          2,
+          3
+        ],
+        "name": "volume_control",
+        "op_type": "VolumeControl",
+        "thread": 0
+      },
+      {
+        "input": [
+          2,
+          3
+        ],
+        "output": [
+          4,
+          5
+        ],
+        "name": "stereo_reverb",
+        "op_type": "ReverbPlateStereo",
+        "thread": 0,
+        "config": {
+          "predelay": 30
+        },
+        "parameters": {
+          "predelay": 15,
+          "width": 1.0,
+          "pregain": 0.5,
+          "wet_dry_mix": 0.5,
+          "damping": 0.5,
+          "decay": 0.5,
+          "early_diffusion": 0.2,
+          "late_diffusion": 0.6,
+          "bandwidth": 8000
+        }
+      }
+    ],
+    "input": {
+      "name": "input",
+      "output": [
+        0,
+        1
+      ],
+      "channels": 2,
+      "fs": 48000
+    },
+    "output": {
+      "name": "output",
+      "input": [
+        4,
+        5
+      ],
+      "channels": 2
+    }
+  }
+}
