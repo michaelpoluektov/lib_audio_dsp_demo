@@ -32,17 +32,6 @@
         "thread": 0,
         "config": {
           "predelay": 30
-        },
-        "parameters": {
-          "predelay": 15,
-          "width": 1.0,
-          "pregain": 0.5,
-          "wet_dry_mix": 0.5,
-          "damping": 0.5,
-          "decay": 0.5,
-          "early_diffusion": 0.2,
-          "late_diffusion": 0.6,
-          "bandwidth": 8000
         }
       }
     ],
