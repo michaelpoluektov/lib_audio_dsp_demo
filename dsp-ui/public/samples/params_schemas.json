@@ -1,0 +1,684 @@
+{
+  "Mixer": {
+    "additionalProperties": false,
+    "properties": {
+      "gain_db": {
+        "default": 0,
+        "title": "Gain Db",
+        "type": "number"
+      }
+    },
+    "title": "MixerParameters",
+    "type": "object"
+  },
+  "FixedGain": {
+    "additionalProperties": false,
+    "properties": {
+      "gain_db": {
+        "default": 0,
+        "title": "Gain Db",
+        "type": "number"
+      }
+    },
+    "title": "FixedGainParameters",
+    "type": "object"
+  },
+  "VolumeControl": {
+    "additionalProperties": false,
+    "properties": {
+      "gain_db": {
+        "default": 0,
+        "title": "Gain Db",
+        "type": "number"
+      },
+      "mute_state": {
+        "default": 0,
+        "title": "Mute State",
+        "type": "integer"
+      }
+    },
+    "title": "VolumeControlParameters",
+    "type": "object"
+  },
+  "Switch": {
+    "additionalProperties": false,
+    "properties": {
+      "position": {
+        "default": 0,
+        "title": "Position",
+        "type": "integer"
+      }
+    },
+    "title": "SwitchParameters",
+    "type": "object"
+  },
+  "SwitchStereo": {
+    "additionalProperties": false,
+    "properties": {
+      "position": {
+        "default": 0,
+        "title": "Position",
+        "type": "integer"
+      }
+    },
+    "title": "SwitchParameters",
+    "type": "object"
+  },
+  "ParametricEq": {
+    "$defs": {
+      "biquad_allpass": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "allpass",
+            "default": "allpass",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          }
+        },
+        "title": "biquad_allpass",
+        "type": "object"
+      },
+      "biquad_bandpass": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "bandpass",
+            "default": "bandpass",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "bw": {
+            "default": 1,
+            "description": "Bandwidth of the filter in octaves.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Bw",
+            "type": "number"
+          }
+        },
+        "title": "biquad_bandpass",
+        "type": "object"
+      },
+      "biquad_bandstop": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "bandstop",
+            "default": "bandstop",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "bw": {
+            "default": 1,
+            "description": "Bandwidth of the filter in octaves.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Bw",
+            "type": "number"
+          }
+        },
+        "title": "biquad_bandstop",
+        "type": "object"
+      },
+      "biquad_bypass": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "bypass",
+            "default": "bypass",
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "title": "biquad_bypass",
+        "type": "object"
+      },
+      "biquad_constant_q": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "constant_q",
+            "default": "constant_q",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          },
+          "boost_db": {
+            "default": 0,
+            "description": "Gain of the filter in dB.",
+            "maximum": 24.0,
+            "minimum": -24.0,
+            "title": "Boost Db",
+            "type": "number"
+          }
+        },
+        "title": "biquad_constant_q",
+        "type": "object"
+      },
+      "biquad_gain": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "gain",
+            "default": "gain",
+            "title": "Type",
+            "type": "string"
+          },
+          "gain_db": {
+            "default": 0,
+            "title": "Gain Db",
+            "type": "number"
+          }
+        },
+        "title": "biquad_gain",
+        "type": "object"
+      },
+      "biquad_highpass": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "highpass",
+            "default": "highpass",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          }
+        },
+        "title": "biquad_highpass",
+        "type": "object"
+      },
+      "biquad_highshelf": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "highshelf",
+            "default": "highshelf",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          },
+          "boost_db": {
+            "default": 0,
+            "description": "Gain of the filter in dB.",
+            "maximum": 24.0,
+            "minimum": -24.0,
+            "title": "Boost Db",
+            "type": "number"
+          }
+        },
+        "title": "biquad_highshelf",
+        "type": "object"
+      },
+      "biquad_linkwitz": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "linkwitz",
+            "default": "linkwitz",
+            "title": "Type",
+            "type": "string"
+          },
+          "f0": {
+            "default": 500,
+            "title": "F0",
+            "type": "number"
+          },
+          "q0": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q0",
+            "type": "number"
+          },
+          "fp": {
+            "default": 1000,
+            "title": "Fp",
+            "type": "number"
+          },
+          "qp": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Qp",
+            "type": "number"
+          }
+        },
+        "title": "biquad_linkwitz",
+        "type": "object"
+      },
+      "biquad_lowpass": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "lowpass",
+            "default": "lowpass",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          }
+        },
+        "title": "biquad_lowpass",
+        "type": "object"
+      },
+      "biquad_lowshelf": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "lowshelf",
+            "default": "lowshelf",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          },
+          "boost_db": {
+            "default": 0,
+            "description": "Gain of the filter in dB.",
+            "maximum": 24.0,
+            "minimum": -24.0,
+            "title": "Boost Db",
+            "type": "number"
+          }
+        },
+        "title": "biquad_lowshelf",
+        "type": "object"
+      },
+      "biquad_notch": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "notch",
+            "default": "notch",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          }
+        },
+        "title": "biquad_notch",
+        "type": "object"
+      },
+      "biquad_peaking": {
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "const": "peaking",
+            "default": "peaking",
+            "title": "Type",
+            "type": "string"
+          },
+          "filter_freq": {
+            "default": 500,
+            "description": "Frequency of the filter in Hz.",
+            "exclusiveMaximum": 24000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Filter Freq",
+            "type": "number"
+          },
+          "q_factor": {
+            "default": 0.707,
+            "description": "Q factor of the filter.",
+            "exclusiveMinimum": 0.0,
+            "maximum": 10.0,
+            "title": "Q Factor",
+            "type": "number"
+          },
+          "boost_db": {
+            "default": 0,
+            "description": "Gain of the filter in dB.",
+            "maximum": 24.0,
+            "minimum": -24.0,
+            "title": "Boost Db",
+            "type": "number"
+          }
+        },
+        "title": "biquad_peaking",
+        "type": "object"
+      }
+    },
+    "additionalProperties": false,
+    "properties": {
+      "filters": {
+        "items": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/biquad_allpass"
+            },
+            {
+              "$ref": "#/$defs/biquad_bandpass"
+            },
+            {
+              "$ref": "#/$defs/biquad_bandstop"
+            },
+            {
+              "$ref": "#/$defs/biquad_bypass"
+            },
+            {
+              "$ref": "#/$defs/biquad_constant_q"
+            },
+            {
+              "$ref": "#/$defs/biquad_gain"
+            },
+            {
+              "$ref": "#/$defs/biquad_highpass"
+            },
+            {
+              "$ref": "#/$defs/biquad_highshelf"
+            },
+            {
+              "$ref": "#/$defs/biquad_linkwitz"
+            },
+            {
+              "$ref": "#/$defs/biquad_lowpass"
+            },
+            {
+              "$ref": "#/$defs/biquad_lowshelf"
+            },
+            {
+              "$ref": "#/$defs/biquad_notch"
+            },
+            {
+              "$ref": "#/$defs/biquad_peaking"
+            }
+          ]
+        },
+        "maxItems": 8,
+        "minItems": 8,
+        "title": "Filters",
+        "type": "array"
+      }
+    },
+    "title": "ParametricEqParameters",
+    "type": "object"
+  },
+  "ReverbPlateStereo": {
+    "additionalProperties": false,
+    "properties": {
+      "predelay": {
+        "default": 15,
+        "description": "Set the predelay in milliseconds.",
+        "maximum": 30.0,
+        "minimum": 0.0,
+        "title": "Predelay",
+        "type": "number"
+      },
+      "width": {
+        "default": 1.0,
+        "description": "",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Width",
+        "type": "number"
+      },
+      "pregain": {
+        "default": 0.5,
+        "description": "It is not advised to increase this value above the default 0.015, as it can result in saturation inside the reverb delay lines.",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Pregain",
+        "type": "number"
+      },
+      "wet_dry_mix": {
+        "default": 0.5,
+        "description": "It is not advised to increase this value above the default 0.015, as it can result in saturation inside the reverb delay lines.",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Wet Dry Mix",
+        "type": "number"
+      },
+      "damping": {
+        "default": 0.5,
+        "description": "This controls how much high frequency attenuation is in the room. Higher values yield shorter reverberation times at high frequencies.",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Damping",
+        "type": "number"
+      },
+      "decay": {
+        "default": 0.5,
+        "description": "This sets how reverberant the room is. Higher values will give a longer reverberation time for a given room size.",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Decay",
+        "type": "number"
+      },
+      "early_diffusion": {
+        "default": 0.2,
+        "description": "",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Early Diffusion",
+        "type": "number"
+      },
+      "late_diffusion": {
+        "default": 0.6,
+        "description": "",
+        "maximum": 1.0,
+        "minimum": 0.0,
+        "title": "Late Diffusion",
+        "type": "number"
+      },
+      "bandwidth": {
+        "default": 8000,
+        "description": "",
+        "maximum": 24000.0,
+        "minimum": 0.0,
+        "title": "Bandwidth",
+        "type": "number"
+      }
+    },
+    "title": "ReverbPlateParams",
+    "type": "object"
+  },
+  "EnvelopeDetectorPeak": {
+    "additionalProperties": false,
+    "properties": {
+      "attack_t": {
+        "default": 0,
+        "title": "Attack T",
+        "type": "number"
+      },
+      "release_t": {
+        "default": 0,
+        "title": "Release T",
+        "type": "number"
+      }
+    },
+    "title": "EnvelopeDetectorParameters",
+    "type": "object"
+  },
+  "EnvelopeDetectorRMS": {
+    "additionalProperties": false,
+    "properties": {
+      "attack_t": {
+        "default": 0,
+        "title": "Attack T",
+        "type": "number"
+      },
+      "release_t": {
+        "default": 0,
+        "title": "Release T",
+        "type": "number"
+      }
+    },
+    "title": "EnvelopeDetectorParameters",
+    "type": "object"
+  },
+  "NoiseSuppressorExpander": {
+    "additionalProperties": false,
+    "properties": {
+      "ratio": {
+        "default": 3,
+        "title": "Ratio",
+        "type": "number"
+      },
+      "threshold_db": {
+        "default": -35,
+        "title": "Threshold Db",
+        "type": "number"
+      },
+      "attack_t": {
+        "default": 0.005,
+        "title": "Attack T",
+        "type": "number"
+      },
+      "release_t": {
+        "default": 0.12,
+        "title": "Release T",
+        "type": "number"
+      }
+    },
+    "title": "NoiseSuppressorExpanderParameters",
+    "type": "object"
+  },
+  "Model": {
+    "additionalProperties": false,
+    "properties": {
+      "ratio": {
+        "default": 3,
+        "title": "Ratio",
+        "type": "number"
+      },
+      "threshold_db": {
+        "default": -35,
+        "title": "Threshold Db",
+        "type": "number"
+      },
+      "attack_t": {
+        "default": 0.005,
+        "title": "Attack T",
+        "type": "number"
+      },
+      "release_t": {
+        "default": 0.12,
+        "title": "Release T",
+        "type": "number"
+      }
+    },
+    "title": "CompressorSidechainParameters",
+    "type": "object"
+  }
+}
