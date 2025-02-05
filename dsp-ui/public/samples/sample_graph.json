@@ -1,0 +1,39 @@
+{
+  "name": "SimpleReverbExample",
+  "nodes": [
+    {
+      "op_type": "ReverbPlateStereo",
+      "placement": {
+        "name": "ReverbNode",
+        "thread": 0,
+        "input": [0, 1],
+        "output": [2, 3]
+      },
+      "config": {
+        "predelay": 30
+      }
+    },
+    {
+      "op_type": "VolumeControl",
+      "placement": {
+        "name": "VolumeNode",
+        "thread": 0,
+        "input": [2, 3],
+        "output": [4, 5]
+      }
+    }
+  ],
+  "input": {
+    "name": "InputNode",
+    "output": [0, 1],
+    "channels": 2,
+    "fs": 48000
+  },
+  "output": {
+    "name": "OutputNode",
+    "input": [4, 5],
+    "channels": 2,
+    "fs": null
+  }
+}
+
