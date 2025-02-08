@@ -1,0 +1,7 @@
+module:
+  switch:
+    position:
+      type: int32_t
+      help: The current switch position.
+includes:
+  - "stdint.h"
